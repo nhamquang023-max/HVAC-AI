@@ -16,6 +16,13 @@ lbnl_sd_ahu:
   fault_types: 5
   raw_directory: data/raw/lbnl_sd_ahu
   status: not_downloaded
+  inventory:
+    source_url: https://fdddata.lbl.gov/data/Simulated_LBNL_FDD_Data_Sets_SDAHU/LBNL_FDD_Data_Sets_SDAHU.pdf
+    local_path: data/external/lbnl_sd_ahu/inventory/LBNL_FDD_Data_Sets_SDAHU.pdf
+    git_tracked: false
+    download_status: downloaded
+    sha256: "FD439082E4F7C33BEC6D440999730FD97B5C0222284E29F71290415B0CA8790B"
+    size_bytes: 530296
   metadata_notes:
     csv_file_count: >-
       The current LBNL dataset webpage reports 20 CSV files, while the official
