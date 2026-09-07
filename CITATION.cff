@@ -1,0 +1,15 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it using this metadata.
+title: HVAC-AI
+version: 0.1.0
+license: MIT
+repository-code: https://github.com/nhamquang023-max/HVAC-AI
+authors:
+  - name: nhamquang023-max
+references:
+  - type: dataset
+    title: LBNL Fault Detection and Diagnostics Data Sets
+    authors:
+      - name: Lawrence Berkeley National Laboratory
+    doi: 10.25984/1881324
+    url: https://faultdetection.lbl.gov/dataset/simulated-sd-ahu/

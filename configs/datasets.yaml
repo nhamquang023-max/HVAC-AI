@@ -1,0 +1,29 @@
+lbnl_sd_ahu:
+  name: LBNL Single-Duct AHU FDD Dataset
+  canonical_dataset_doi: 10.25984/1881324
+  inventory_pdf_printed_doi: 10.25984/1881321
+  doi_verification_status: official_sources_conflict
+  source_page: https://faultdetection.lbl.gov/dataset/simulated-sd-ahu/
+  license: CC-BY-4.0
+  system: single-duct AHU
+  sample_interval_minutes: 1
+  timespan_days: 365
+  data_points: 30
+  website_reported_csv_files: 20
+  inventory_listed_csv_files: 21
+  expected_csv_files: null
+  csv_count_verification: pending_download
+  fault_types: 5
+  raw_directory: data/raw/lbnl_sd_ahu
+  status: not_downloaded
+  metadata_notes:
+    csv_file_count: >-
+      The current LBNL dataset webpage reports 20 CSV files, while the official
+      SD-AHU inventory PDF lists 21 files (20 faulted cases plus one fault-free
+      case). The actual ZIP contents will be treated as authoritative after
+      download and integrity inspection.
+    doi: >-
+      The current LBNL landing page and DOE/Data.gov catalog both report
+      10.25984/1881324. The SD-AHU inventory PDF contains a different printed DOI
+      (10.25984/1881321), which is retained in the project documentation as a
+      provenance discrepancy.

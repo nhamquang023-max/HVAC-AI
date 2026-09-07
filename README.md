@@ -20,10 +20,18 @@ The primary goals for V1.0 are:
 
 Energy forecasting is considered a secondary extension rather than the primary V1.0 objective.
 
-## Planned Data
+## Data
 
-Public HVAC datasets will be used.
-LBNL HVAC FDD datasets are currently planned as primary benchmark candidates.
+The primary planned benchmark is the LBNL Single-Duct AHU FDD dataset. The dataset is
+not bundled with this repository; users should obtain it from the
+[official LBNL source](https://faultdetection.lbl.gov/dataset/simulated-sd-ahu/).
+It is published under the Creative Commons Attribution 4.0 International license
+(CC BY 4.0) with DOI [10.25984/1881324](https://doi.org/10.25984/1881324).
+
+See the [dataset documentation](docs/datasets/lbnl_sd_ahu.md) and
+[data license summary](DATA_LICENSES.md) for source, attribution, and repository policy.
+Known discrepancies between official metadata sources are preserved in the dataset
+documentation pending inspection of the downloaded archive.
 
 ## Repository Structure
 
@@ -42,7 +50,8 @@ LBNL HVAC FDD datasets are currently planned as primary benchmark candidates.
 
 The project will use Python 3.11, `environment.yml` for the Conda environment definition, `pyproject.toml` for package metadata and configuration, and automated tests.
 
-The current environment definition includes only Python and pip. Scientific dependencies and automated tests will be added in later phases.
+Scientific and development dependencies are declared in `pyproject.toml`, with resolved versions
+recorded in `requirements-lock.txt`.
 
 ## License
 

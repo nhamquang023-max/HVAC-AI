@@ -58,6 +58,9 @@ Desktop.ini
 # Data
 data/raw/*
 !data/raw/.gitkeep
+!data/raw/lbnl_sd_ahu/
+data/raw/lbnl_sd_ahu/*
+!data/raw/lbnl_sd_ahu/.gitkeep
 data/interim/*
 !data/interim/.gitkeep
 data/processed/*
