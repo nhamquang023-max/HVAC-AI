@@ -41,6 +41,17 @@ lbnl_sd_ahu:
     unique_csv_contents: 15
     duplicate_content_groups: 2
     byte_identical_files: 8
+  quality_audit:
+    status: verified
+    report: docs/datasets/lbnl_sd_ahu_data_quality.md
+    manifest: docs/datasets/lbnl_sd_ahu_data_quality.json
+    chunk_size: 50000
+    logical_csv_files: 21
+    unique_content_scans: 15
+    unique_timelines: 2
+    files_with_datetime_issues: 0
+    files_with_missing_values: 0
+    files_with_inf: 0
   inventory:
     source_url: https://fdddata.lbl.gov/data/Simulated_LBNL_FDD_Data_Sets_SDAHU/LBNL_FDD_Data_Sets_SDAHU.pdf
     local_path: data/external/lbnl_sd_ahu/inventory/LBNL_FDD_Data_Sets_SDAHU.pdf

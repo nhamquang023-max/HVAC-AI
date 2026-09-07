@@ -98,6 +98,13 @@ pinned archive, covering eight filenames and 15 unique CSV contents overall.
 See the [LBNL SD-AHU byte-identity audit](lbnl_sd_ahu_duplicate_audit.md) for the
 member hashes, duplicate groups, and benchmark implications.
 
+## Data quality audit
+
+A chunked full-content audit verified the temporal and numerical structure of all
+21 logical CSV files while physically scanning the 15 unique byte contents. See
+the [LBNL SD-AHU data quality audit](lbnl_sd_ahu_data_quality.md) for observed
+coverage, timeline groups, numerical integrity, and constant-column findings.
+
 ## Current project usage
 
 The SD-AHU dataset is planned as the primary V1.0 benchmark for AHU anomaly
