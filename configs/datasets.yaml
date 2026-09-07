@@ -35,6 +35,12 @@ lbnl_sd_ahu:
     unsafe_member_count: 0
     duplicate_member_count: 0
     encrypted_member_count: 0
+  content_audit:
+    status: verified
+    member_hash_manifest: docs/datasets/lbnl_sd_ahu_member_hashes.json
+    unique_csv_contents: 15
+    duplicate_content_groups: 2
+    byte_identical_files: 8
   inventory:
     source_url: https://fdddata.lbl.gov/data/Simulated_LBNL_FDD_Data_Sets_SDAHU/LBNL_FDD_Data_Sets_SDAHU.pdf
     local_path: data/external/lbnl_sd_ahu/inventory/LBNL_FDD_Data_Sets_SDAHU.pdf

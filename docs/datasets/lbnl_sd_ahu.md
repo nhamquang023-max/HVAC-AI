@@ -91,6 +91,13 @@ Raw LBNL data files are NOT committed to this Git repository.
 
 Users should obtain the source data from the official LBNL/DOE distribution.
 
+## Byte-identity audit
+
+A streamed SHA-256 audit found two groups of byte-identical CSV members in the
+pinned archive, covering eight filenames and 15 unique CSV contents overall.
+See the [LBNL SD-AHU byte-identity audit](lbnl_sd_ahu_duplicate_audit.md) for the
+member hashes, duplicate groups, and benchmark implications.
+
 ## Current project usage
 
 The SD-AHU dataset is planned as the primary V1.0 benchmark for AHU anomaly
