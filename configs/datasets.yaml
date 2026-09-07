@@ -11,11 +11,30 @@ lbnl_sd_ahu:
   data_points: 30
   website_reported_csv_files: 20
   inventory_listed_csv_files: 21
-  expected_csv_files: null
-  csv_count_verification: pending_download
+  actual_csv_files: 21
+  expected_csv_files: 21
+  csv_count_verification: verified_from_downloaded_archive
   fault_types: 5
   raw_directory: data/raw/lbnl_sd_ahu
-  status: not_downloaded
+  status: archive_downloaded_not_extracted
+  archive:
+    filename: LBNL_FDD_Data_Sets_SDAHU.zip
+    local_path: data/raw/lbnl_sd_ahu/archive/LBNL_FDD_Data_Sets_SDAHU.zip
+    git_tracked: false
+    download_status: downloaded
+    extraction_status: not_extracted
+    audit_date: "2026-09-07"
+    size_bytes: 607666899
+    sha256: "8295FCF0F55BC955937CB4EC0198512C28E5EDE32E6BBF735257B0DF55426471"
+    zip_valid: true
+    crc_integrity: passed
+    total_members: 22
+    regular_files: 21
+    directory_members: 1
+    csv_files: 21
+    unsafe_member_count: 0
+    duplicate_member_count: 0
+    encrypted_member_count: 0
   inventory:
     source_url: https://fdddata.lbl.gov/data/Simulated_LBNL_FDD_Data_Sets_SDAHU/LBNL_FDD_Data_Sets_SDAHU.pdf
     local_path: data/external/lbnl_sd_ahu/inventory/LBNL_FDD_Data_Sets_SDAHU.pdf
@@ -27,8 +46,8 @@ lbnl_sd_ahu:
     csv_file_count: >-
       The current LBNL dataset webpage reports 20 CSV files, while the official
       SD-AHU inventory PDF lists 21 files (20 faulted cases plus one fault-free
-      case). The actual ZIP contents will be treated as authoritative after
-      download and integrity inspection.
+      case). The downloaded archive contains 21 CSV files. Its contents are the
+      authoritative file-count observation for the pinned archive SHA-256.
     doi: >-
       The current LBNL landing page and DOE/Data.gov catalog both report
       10.25984/1881324. The SD-AHU inventory PDF contains a different printed DOI

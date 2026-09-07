@@ -32,7 +32,7 @@ The dataset was generated through EnergyPlus and Modelica co-simulation.
 - Time span: 365 days
 - Sample interval: 1 minute
 - Monitored data points: 30
-- CSV files: unresolved pending inspection of the downloaded ZIP
+- CSV files: 21 in the downloaded archive identified below
 - Fault types: 5
 - Cases: multiple fault severity levels and one fault-free case
 - Official downloadable ZIP size: approximately 593 MB
@@ -44,8 +44,14 @@ The dataset was generated through EnergyPlus and Modelica co-simulation.
 
 The current LBNL dataset webpage reports 20 CSV files. The official SD-AHU
 inventory PDF lists 21 entries in Table 4: 20 faulted-case files and one
-fault-free file. The actual number of CSV files remains unverified until the ZIP
-is downloaded and its contents pass an integrity inspection.
+fault-free file. The downloaded archive contains 21 regular CSV members and
+therefore agrees with the inventory PDF for this pinned archive:
+
+- SHA-256: `8295FCF0F55BC955937CB4EC0198512C28E5EDE32E6BBF735257B0DF55426471`
+- Archive audit: [LBNL SD-AHU archive provenance](lbnl_sd_ahu_archive_provenance.md)
+
+The website's reported count of 20 remains preserved as an official-source
+discrepancy.
 
 ### DOI
 
