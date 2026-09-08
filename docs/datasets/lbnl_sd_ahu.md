@@ -117,6 +117,18 @@ schema; its timezone remains unspecified.
 - [Canonical scenario registry](../../configs/lbnl_sd_ahu_scenarios.yaml)
 - [Local sample provenance](lbnl_sd_ahu_sample_provenance.md)
 
+## Ingestion
+
+The canonical ZIP-to-Parquet ingestion pipeline streams a selected CSV member without
+extracting raw data and writes a fixed 42-column Arrow schema. The 1,440-row
+`AHU_annual.csv` smoke test passed, including multi-chunk timeline validation and an
+exact CSV-to-Parquet raw-value comparison.
+
+- [Ingestion pipeline contract](lbnl_sd_ahu_ingestion.md)
+- [Machine-readable ingestion smoke manifest](lbnl_sd_ahu_ingestion_smoke.json)
+
+Full dataset conversion has not yet been executed.
+
 ## Current project usage
 
 The SD-AHU dataset is planned as the primary V1.0 benchmark for AHU anomaly

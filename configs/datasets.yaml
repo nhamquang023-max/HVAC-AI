@@ -60,6 +60,19 @@ lbnl_sd_ahu:
     files_with_datetime_issues: 0
     files_with_missing_values: 0
     files_with_inf: 0
+  ingestion:
+    status: smoke_tested
+    pipeline: src/hvac_ai/data/lbnl_sd_ahu_ingest.py
+    cli: scripts/ingest_lbnl_sd_ahu.py
+    output_format: parquet
+    parquet_engine: pyarrow
+    compression: zstd
+    compression_level: 3
+    raw_columns: 31
+    metadata_columns: 11
+    processed_columns: 42
+    smoke_manifest: docs/datasets/lbnl_sd_ahu_ingestion_smoke.json
+    full_ingestion_status: not_run
   inventory:
     source_url: https://fdddata.lbl.gov/data/Simulated_LBNL_FDD_Data_Sets_SDAHU/LBNL_FDD_Data_Sets_SDAHU.pdf
     local_path: data/external/lbnl_sd_ahu/inventory/LBNL_FDD_Data_Sets_SDAHU.pdf
