@@ -17,6 +17,14 @@ lbnl_sd_ahu:
   fault_types: 5
   raw_directory: data/raw/lbnl_sd_ahu
   status: archive_downloaded_not_extracted
+  scenario_registry: configs/lbnl_sd_ahu_scenarios.yaml
+  schema: configs/lbnl_sd_ahu_schema.yaml
+  data_dictionary: docs/datasets/lbnl_sd_ahu_data_dictionary.md
+  label_contract: docs/datasets/lbnl_sd_ahu_label_contract.md
+  sample:
+    tracked: false
+    path: data/interim/lbnl_sd_ahu/sample/AHU_annual_first_24h.csv
+    provenance: docs/datasets/lbnl_sd_ahu_sample_provenance.md
   archive:
     filename: LBNL_FDD_Data_Sets_SDAHU.zip
     local_path: data/raw/lbnl_sd_ahu/archive/LBNL_FDD_Data_Sets_SDAHU.zip

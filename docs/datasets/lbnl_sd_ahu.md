@@ -105,6 +105,13 @@ A chunked full-content audit verified the temporal and numerical structure of al
 the [LBNL SD-AHU data quality audit](lbnl_sd_ahu_data_quality.md) for observed
 coverage, timeline groups, numerical integrity, and constant-column findings.
 
+## Data contracts
+
+- [Raw field data dictionary](lbnl_sd_ahu_data_dictionary.md)
+- [Label contract](lbnl_sd_ahu_label_contract.md)
+- [Canonical scenario registry](../../configs/lbnl_sd_ahu_scenarios.yaml)
+- [Local sample provenance](lbnl_sd_ahu_sample_provenance.md)
+
 ## Current project usage
 
 The SD-AHU dataset is planned as the primary V1.0 benchmark for AHU anomaly
