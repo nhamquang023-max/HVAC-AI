@@ -75,3 +75,31 @@ not asserted to remain identical across PyArrow versions or operating systems.
 ## Full ingestion status
 
 Full 21-scenario ingestion has **NOT** been run yet.
+
+## Full-ingestion orchestration
+
+The batch orchestrator builds a deterministic 21-scenario plan in canonical registry
+order and retains every logical scenario, including byte-identical duplicate groups
+and the shorter `damper_stuck_100_annual_short.csv` scenario. Before any write, it
+checks the pinned archive hash, expected row totals, output-name uniqueness, final
+target absence, staging conflicts, existing processed Parquet files, Git ignore rules,
+and available space on the output volume.
+
+The capacity estimate scales the tracked smoke artifact's actual bytes per row to the
+10,818,901 expected rows. Required free space is the larger of 5 GiB or three times
+the projected Parquet size. This estimate supports capacity planning and is not a
+promise of the final dataset size.
+
+A full run writes each scenario through the single-scenario ingestion API into a
+unique same-volume sibling staging directory. The orchestrator validates all 21 files,
+their row counts, schemas, compression, registry metadata, and hashes before publishing
+the completed directory with an atomic rename. A failure stops immediately, removes
+only the staging directory created by that run, and leaves the final target absent.
+Pre-existing final or staging paths are never removed automatically.
+
+After dataset-level validation, the orchestrator builds the full-ingestion manifest,
+validates a temporary JSON file, and atomically publishes it. A manifest receives
+`complete_and_verified` only when every planned scenario and the complete row total
+pass validation.
+
+The real-data preflight passed. Full 21-scenario ingestion has not yet been executed.
