@@ -40,3 +40,312 @@ labels_added_by_ingestion:
 - fault_present
 - fault_family
 - severity_token
+timestamp_metadata:
+  column: Datetime
+  role: timestamp
+  unit: null
+  timezone: unspecified
+  officially_verified: false
+  officially_verified_from_inventory: false
+  verified_from_archive_schema: true
+feature_metadata:
+  CHWC_VLV:
+    role: raw monitored point
+    description: AHU cooling-coil valve position
+    unit: dimensionless
+    range_or_states: 0-1 open fraction
+    basic_point: false
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  CHWC_VLV_DM:
+    role: raw monitored point
+    description: AHU cooling-coil valve control signal
+    unit: dimensionless
+    range_or_states: 0-1 open fraction
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  MA_TEMP:
+    role: raw monitored point
+    description: AHU mixed-air temperature
+    unit: degF
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  OA_CFM:
+    role: raw monitored point
+    description: AHU outdoor-air volumetric airflow
+    unit: CFM
+    range_or_states: null
+    basic_point: false
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  OA_DMPR:
+    role: raw monitored point
+    description: AHU outdoor-air damper position
+    unit: dimensionless
+    range_or_states: 0-1 open fraction
+    basic_point: false
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  OA_DMPR_DM:
+    role: raw monitored point
+    description: AHU outdoor-air damper control signal
+    unit: dimensionless
+    range_or_states: 0-1 open fraction
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  OA_TEMP:
+    role: raw monitored point
+    description: AHU outdoor-air temperature
+    unit: degF
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  RA_CFM:
+    role: raw monitored point
+    description: AHU return-air volumetric airflow
+    unit: CFM
+    range_or_states: null
+    basic_point: false
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  RA_DMPR:
+    role: raw monitored point
+    description: AHU return-air damper position
+    unit: dimensionless
+    range_or_states: 0-1 open fraction
+    basic_point: false
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  RA_DMPR_DM:
+    role: raw monitored point
+    description: AHU return-air damper control signal
+    unit: dimensionless
+    range_or_states: 0-1 open fraction
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  RA_TEMP:
+    role: raw monitored point
+    description: AHU return-air temperature
+    unit: degF
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  RF_CS:
+    role: raw monitored point
+    description: AHU return-fan speed control signal
+    unit: dimensionless
+    range_or_states: 0-1
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  RF_SPD:
+    role: raw monitored point
+    description: AHU return-fan speed position
+    unit: dimensionless
+    range_or_states: 0-1
+    basic_point: false
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  RF_SPD_DM:
+    role: raw monitored point
+    description: AHU return-fan on/off status
+    unit: dimensionless
+    range_or_states: 0=off, 1=on
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  RF_WAT:
+    role: raw monitored point
+    description: AHU return-fan power
+    unit: W
+    range_or_states: null
+    basic_point: false
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  SA_CFM:
+    role: raw monitored point
+    description: AHU supply-air volumetric airflow
+    unit: CFM
+    range_or_states: null
+    basic_point: false
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  SA_SP:
+    role: raw monitored point
+    description: AHU supply-air duct static pressure
+    unit: inH2O
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  SA_SPSPT:
+    role: raw monitored point
+    description: AHU supply-air duct static-pressure setpoint
+    unit: inH2O
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  SA_TEMP:
+    role: raw monitored point
+    description: AHU supply-air temperature
+    unit: degF
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  SA_TEMPSPT:
+    role: raw monitored point
+    description: AHU supply-air temperature setpoint
+    unit: degF
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  SF_CS:
+    role: raw monitored point
+    description: AHU supply-fan speed control signal
+    unit: dimensionless
+    range_or_states: 0-1
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  SF_SPD:
+    role: raw monitored point
+    description: AHU supply-fan speed position
+    unit: dimensionless
+    range_or_states: 0-1
+    basic_point: false
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  SF_SPD_DM:
+    role: raw monitored point
+    description: AHU supply-fan on/off status
+    unit: dimensionless
+    range_or_states: 0=off, 1=on
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  SF_WAT:
+    role: raw monitored point
+    description: AHU supply-fan power
+    unit: W
+    range_or_states: null
+    basic_point: false
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  SYS_CTL:
+    role: raw monitored point
+    description: AHU occupied/unoccupied mode indicator
+    unit: dimensionless
+    range_or_states: 0=unoccupied, 1=occupied
+    basic_point: false
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  ZONE_TEMP_1:
+    role: raw monitored point
+    description: Zone 1 air temperature
+    unit: degF
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  ZONE_TEMP_2:
+    role: raw monitored point
+    description: Zone 2 air temperature
+    unit: degF
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  ZONE_TEMP_3:
+    role: raw monitored point
+    description: Zone 3 air temperature
+    unit: degF
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  ZONE_TEMP_4:
+    role: raw monitored point
+    description: Zone 4 air temperature
+    unit: degF
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2
+  ZONE_TEMP_5:
+    role: raw monitored point
+    description: Zone 5 air temperature
+    unit: degF
+    range_or_states: null
+    basic_point: true
+    officially_verified: true
+    official_source:
+      document: LBNL_FDD_Data_Sets_SDAHU.pdf
+      table: 2

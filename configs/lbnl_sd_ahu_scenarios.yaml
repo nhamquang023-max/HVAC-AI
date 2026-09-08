@@ -6,12 +6,17 @@ source:
   member_hash_manifest: ../docs/datasets/lbnl_sd_ahu_member_hashes.json
   data_quality_manifest: ../docs/datasets/lbnl_sd_ahu_data_quality.json
   scenario_count: 21
-  severity_unit_policy: null unless directly verified from official documentation
+  severity_unit_policy: use official Tables 3-4 only when the inventory scenario token matches the archive token; retain null for unresolved coi_bias/sa_bias mapping
   filename_token_policy: preserve tokens from actual archive filenames
   naming_discrepancy:
     archive_filename_token: coi_bias
     inventory_document_token: sa_bias
     equivalence_status: not established
+  severity_metadata_source:
+    document: LBNL_FDD_Data_Sets_SDAHU.pdf
+    tables:
+    - 3
+    - 4
 scenarios:
 - scenario_id: fault_free
   filename: AHU_annual.csv
@@ -31,6 +36,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: not_applicable
 - scenario_id: coi_bias_-2
   filename: coi_bias_-2_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_bias_-2_annual.csv
@@ -49,6 +55,10 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: unresolved_filename_mismatch
+  inventory_candidate_fault_family: supply_air_temperature_sensor_bias
+  inventory_candidate_severity_unit: degC
+  semantic_mapping_status: unresolved_filename_mismatch
 - scenario_id: coi_bias_-4
   filename: coi_bias_-4_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_bias_-4_annual.csv
@@ -67,6 +77,10 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: unresolved_filename_mismatch
+  inventory_candidate_fault_family: supply_air_temperature_sensor_bias
+  inventory_candidate_severity_unit: degC
+  semantic_mapping_status: unresolved_filename_mismatch
 - scenario_id: coi_bias_2
   filename: coi_bias_2_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_bias_2_annual.csv
@@ -85,6 +99,10 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: unresolved_filename_mismatch
+  inventory_candidate_fault_family: supply_air_temperature_sensor_bias
+  inventory_candidate_severity_unit: degC
+  semantic_mapping_status: unresolved_filename_mismatch
 - scenario_id: coi_bias_4
   filename: coi_bias_4_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_bias_4_annual.csv
@@ -103,6 +121,10 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: unresolved_filename_mismatch
+  inventory_candidate_fault_family: supply_air_temperature_sensor_bias
+  inventory_candidate_severity_unit: degC
+  semantic_mapping_status: unresolved_filename_mismatch
 - scenario_id: coi_leakage_010
   filename: coi_leakage_010_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_leakage_010_annual.csv
@@ -110,7 +132,7 @@ scenarios:
   fault_present: true
   severity_token: '010'
   severity_value: 10
-  severity_unit: null
+  severity_unit: percent
   is_short: false
   content_sha256: E520275F67027BBED69F84E6966BCEF206AB0F7B2090D265934793E8D7AF45FF
   byte_identical_group: duplicate_group_002
@@ -121,6 +143,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: coi_leakage_025
   filename: coi_leakage_025_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_leakage_025_annual.csv
@@ -128,7 +151,7 @@ scenarios:
   fault_present: true
   severity_token: '025'
   severity_value: 25
-  severity_unit: null
+  severity_unit: percent
   is_short: false
   content_sha256: E520275F67027BBED69F84E6966BCEF206AB0F7B2090D265934793E8D7AF45FF
   byte_identical_group: duplicate_group_002
@@ -139,6 +162,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: coi_leakage_040
   filename: coi_leakage_040_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_leakage_040_annual.csv
@@ -146,7 +170,7 @@ scenarios:
   fault_present: true
   severity_token: '040'
   severity_value: 40
-  severity_unit: null
+  severity_unit: percent
   is_short: false
   content_sha256: E520275F67027BBED69F84E6966BCEF206AB0F7B2090D265934793E8D7AF45FF
   byte_identical_group: duplicate_group_002
@@ -157,6 +181,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: coi_leakage_050
   filename: coi_leakage_050_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_leakage_050_annual.csv
@@ -164,7 +189,7 @@ scenarios:
   fault_present: true
   severity_token: '050'
   severity_value: 50
-  severity_unit: null
+  severity_unit: percent
   is_short: false
   content_sha256: E520275F67027BBED69F84E6966BCEF206AB0F7B2090D265934793E8D7AF45FF
   byte_identical_group: duplicate_group_002
@@ -175,6 +200,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: coi_stuck_010
   filename: coi_stuck_010_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_stuck_010_annual.csv
@@ -182,7 +208,7 @@ scenarios:
   fault_present: true
   severity_token: '010'
   severity_value: 10
-  severity_unit: null
+  severity_unit: percent
   is_short: false
   content_sha256: D8EC2FAA84A0DFA5DFC4756BC848E877A110C3CCC70BA66E8A31DB3FC632454A
   byte_identical_group: null
@@ -193,6 +219,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: coi_stuck_025
   filename: coi_stuck_025_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_stuck_025_annual.csv
@@ -200,7 +227,7 @@ scenarios:
   fault_present: true
   severity_token: '025'
   severity_value: 25
-  severity_unit: null
+  severity_unit: percent
   is_short: false
   content_sha256: E2E7EB27F1BC22F666E43C3CA31CEA4000B9344C74046469DC530D7DCF500B21
   byte_identical_group: null
@@ -211,6 +238,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: coi_stuck_050
   filename: coi_stuck_050_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_stuck_050_annual.csv
@@ -218,7 +246,7 @@ scenarios:
   fault_present: true
   severity_token: '050'
   severity_value: 50
-  severity_unit: null
+  severity_unit: percent
   is_short: false
   content_sha256: DC28965164CDB8AAA2F7E97945C6246FA6AD886D56A705ECDC08FF77DC2BAF4E
   byte_identical_group: null
@@ -229,6 +257,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: coi_stuck_075
   filename: coi_stuck_075_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/coi_stuck_075_annual.csv
@@ -236,7 +265,7 @@ scenarios:
   fault_present: true
   severity_token: '075'
   severity_value: 75
-  severity_unit: null
+  severity_unit: percent
   is_short: false
   content_sha256: 5AC746C006EFAF88E41E8A5E0FCFF861CD0AEE5DFA102FC5E4A560A54F584FE1
   byte_identical_group: null
@@ -247,6 +276,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: damper_stuck_010
   filename: damper_stuck_010_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/damper_stuck_010_annual.csv
@@ -254,7 +284,7 @@ scenarios:
   fault_present: true
   severity_token: '010'
   severity_value: 10
-  severity_unit: null
+  severity_unit: percent
   is_short: false
   content_sha256: 1BA1266850EE5F87CBAC55E5DF82FFB757DD2B155A4DF7F934F07DA5EF2CBF68
   byte_identical_group: null
@@ -265,6 +295,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: damper_stuck_025
   filename: damper_stuck_025_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/damper_stuck_025_annual.csv
@@ -272,7 +303,7 @@ scenarios:
   fault_present: true
   severity_token: '025'
   severity_value: 25
-  severity_unit: null
+  severity_unit: percent
   is_short: false
   content_sha256: A1F43D6091D34BC8EDCF4DBF2FA686888C563BBDF6418D2AFE3512B77E67544E
   byte_identical_group: null
@@ -283,6 +314,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: damper_stuck_075
   filename: damper_stuck_075_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/damper_stuck_075_annual.csv
@@ -290,7 +322,7 @@ scenarios:
   fault_present: true
   severity_token: '075'
   severity_value: 75
-  severity_unit: null
+  severity_unit: percent
   is_short: false
   content_sha256: A79FA6F737305B55E39FFD8CF5D14BEDB4F2CFBD72E425143E5AF6BC4AD4E423
   byte_identical_group: null
@@ -301,6 +333,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: damper_stuck_100
   filename: damper_stuck_100_annual_short.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/damper_stuck_100_annual_short.csv
@@ -308,7 +341,7 @@ scenarios:
   fault_present: true
   severity_token: '100'
   severity_value: 100
-  severity_unit: null
+  severity_unit: percent
   is_short: true
   content_sha256: 2B2E3C6817C2A92DC99C41643497577939CB7D6B0D3BC287E297B611C04AA43D
   byte_identical_group: null
@@ -319,6 +352,7 @@ scenarios:
   row_count: 308101
   start_datetime: '2018-04-01T01:00:00'
   end_datetime: '2018-11-01T00:00:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: oa_bias_-2
   filename: oa_bias_-2_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/oa_bias_-2_annual.csv
@@ -326,7 +360,7 @@ scenarios:
   fault_present: true
   severity_token: '-2'
   severity_value: -2
-  severity_unit: null
+  severity_unit: degC
   is_short: false
   content_sha256: 07302CF907B48C495609C2DB44C5E82CBB62290D1B4D9C05F8012FC00A5388E8
   byte_identical_group: duplicate_group_001
@@ -337,6 +371,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: oa_bias_-4
   filename: oa_bias_-4_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/oa_bias_-4_annual.csv
@@ -344,7 +379,7 @@ scenarios:
   fault_present: true
   severity_token: '-4'
   severity_value: -4
-  severity_unit: null
+  severity_unit: degC
   is_short: false
   content_sha256: 07302CF907B48C495609C2DB44C5E82CBB62290D1B4D9C05F8012FC00A5388E8
   byte_identical_group: duplicate_group_001
@@ -355,6 +390,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: oa_bias_2
   filename: oa_bias_2_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/oa_bias_2_annual.csv
@@ -362,7 +398,7 @@ scenarios:
   fault_present: true
   severity_token: '2'
   severity_value: 2
-  severity_unit: null
+  severity_unit: degC
   is_short: false
   content_sha256: 07302CF907B48C495609C2DB44C5E82CBB62290D1B4D9C05F8012FC00A5388E8
   byte_identical_group: duplicate_group_001
@@ -373,6 +409,7 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4
 - scenario_id: oa_bias_4
   filename: oa_bias_4_annual.csv
   archive_member: LBNL_FDD_Dataset_SDAHU/oa_bias_4_annual.csv
@@ -380,7 +417,7 @@ scenarios:
   fault_present: true
   severity_token: '4'
   severity_value: 4
-  severity_unit: null
+  severity_unit: degC
   is_short: false
   content_sha256: 07302CF907B48C495609C2DB44C5E82CBB62290D1B4D9C05F8012FC00A5388E8
   byte_identical_group: duplicate_group_001
@@ -391,3 +428,4 @@ scenarios:
   row_count: 525540
   start_datetime: '2018-01-01T01:00:00'
   end_datetime: '2018-12-31T23:59:00'
+  severity_metadata_status: verified_from_inventory_tables_3_4

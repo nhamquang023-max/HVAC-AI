@@ -33,20 +33,35 @@ The canonical `fault_family` values are:
 
 `severity_token` preserves the exact token embedded in the source filename. For
 example, `-2`, `010`, and `100` remain distinct source strings. `severity_value`
-is their direct integer conversion for ordering and filtering. `severity_unit` is
-`null` because a physical unit has not been reliably verified from the official
-inventory. The fault-free scenario has null token, value, and unit.
+is their direct integer conversion for ordering and filtering. Official inventory
+Tables 3–4 verify these units where the inventory and archive family tokens match:
+
+- `oa_bias`: `degC`
+- `coi_leakage`: `percent`
+- `coi_stuck`: `percent`
+- `damper_stuck`: `percent`
+
+The fault-free scenario has null token, value, and unit. The four `coi_bias`
+scenarios also retain a null `severity_unit` because their archive token does not
+match the inventory's `sa_bias` token. Their candidate inventory unit is recorded
+separately as `degC` with `semantic_mapping_status: unresolved_filename_mismatch`.
 
 Severity labels are source-scenario metadata. They do not by themselves establish
-a physical interpretation or unit.
+a physical interpretation beyond the explicitly reconciled official metadata.
 
 ## Source naming discrepancy
 
-The actual archive filenames use the token `coi_bias`. The official inventory PDF
-uses `sa_bias` in its scenario listing. The registry preserves `coi_bias` because
-the archive filename is the canonical machine-readable source. Current evidence
-does not establish that `coi_bias` and `sa_bias` have fully equivalent business or
-physical meanings, so this project makes no equivalence assertion.
+The actual archive contains `coi_bias_-2_annual.csv`, `coi_bias_-4_annual.csv`,
+`coi_bias_2_annual.csv`, and `coi_bias_4_annual.csv`. Official inventory Table 4
+instead lists the corresponding filename positions with the `sa_bias` token, and
+Table 3 describes `sa_bias` as supply-air temperature sensor bias at ±2°C and
+±4°C. The archive contains no `sa_bias` CSV member.
+
+The registry preserves `coi_bias` because the archive filename is the canonical
+machine-readable source. Current evidence does not establish that `coi_bias` and
+`sa_bias` have fully equivalent business or physical meanings, so this project
+makes no equivalence assertion. The status is `unresolved_filename_mismatch`; see
+the [inventory reconciliation](lbnl_sd_ahu_inventory_reconciliation.md).
 
 ## Severity benchmark limitations
 

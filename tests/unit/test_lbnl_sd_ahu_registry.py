@@ -93,6 +93,41 @@ def test_duplicate_group_metadata(registry: dict[str, object]) -> None:
     ] is False
 
 
+@pytest.mark.parametrize(
+    ("fault_family", "expected_unit"),
+    [
+        ("fault_free", None),
+        ("coi_bias", None),
+        ("coi_leakage", "percent"),
+        ("coi_stuck", "percent"),
+        ("damper_stuck", "percent"),
+        ("oa_bias", "degC"),
+    ],
+)
+def test_reconciled_severity_units(
+    registry: dict[str, object], fault_family: str, expected_unit: str | None
+) -> None:
+    family_scenarios = [
+        item for item in registry["scenarios"] if item["fault_family"] == fault_family
+    ]
+    assert family_scenarios
+    assert {item["severity_unit"] for item in family_scenarios} == {expected_unit}
+
+
+def test_coi_bias_mapping_remains_unresolved(registry: dict[str, object]) -> None:
+    coi_bias = [
+        item for item in registry["scenarios"] if item["fault_family"] == "coi_bias"
+    ]
+    assert len(coi_bias) == 4
+    assert all(item["severity_unit"] is None for item in coi_bias)
+    assert all(
+        item["semantic_mapping_status"] == "unresolved_filename_mismatch"
+        for item in coi_bias
+    )
+    assert all(item["inventory_candidate_severity_unit"] == "degC" for item in coi_bias)
+    assert not any(item["filename"].startswith("sa_bias") for item in registry["scenarios"])
+
+
 @pytest.mark.parametrize("duplicated_field", ["filename", "scenario_id"])
 def test_duplicate_filename_or_id_fails(
     registry: dict[str, object], duplicated_field: str

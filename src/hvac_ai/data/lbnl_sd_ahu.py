@@ -23,6 +23,14 @@ ALLOWED_FAULT_FAMILIES = frozenset(
 )
 EXPECTED_SCENARIO_COUNT = 21
 EXPECTED_DUPLICATE_GROUP_COUNT = 2
+EXPECTED_SEVERITY_UNITS = {
+    "fault_free": None,
+    "coi_bias": None,
+    "coi_leakage": "percent",
+    "coi_stuck": "percent",
+    "damper_stuck": "percent",
+    "oa_bias": "degC",
+}
 
 _FAULT_FILENAME = re.compile(
     r"^(coi_bias|coi_leakage|coi_stuck|damper_stuck|oa_bias)_"
@@ -38,6 +46,7 @@ _REQUIRED_FIELDS = frozenset(
         "severity_token",
         "severity_value",
         "severity_unit",
+        "severity_metadata_status",
         "is_short",
         "content_sha256",
         "byte_identical_group",
@@ -154,12 +163,30 @@ def validate_scenario_registry(
                 )
         if scenario["fault_family"] not in ALLOWED_FAULT_FAMILIES:
             raise ScenarioRegistryError(f"Invalid fault_family for {filename}")
+        expected_unit = EXPECTED_SEVERITY_UNITS[scenario["fault_family"]]
+        if scenario["severity_unit"] != expected_unit:
+            raise ScenarioRegistryError(
+                f"{filename} has severity_unit={scenario['severity_unit']!r}; "
+                f"expected {expected_unit!r}"
+            )
         if scenario["fault_family"] == "fault_free":
             fault_free_count += 1
-            if scenario["severity_unit"] is not None:
-                raise ScenarioRegistryError("Fault-free severity_unit must be null")
-        elif scenario["severity_unit"] not in {None, "unknown"}:
-            raise ScenarioRegistryError(f"Unverified severity_unit for {filename}")
+            if scenario["severity_metadata_status"] != "not_applicable":
+                raise ScenarioRegistryError("Fault-free severity metadata must be not_applicable")
+        elif scenario["fault_family"] == "coi_bias":
+            if (
+                scenario["severity_metadata_status"] != "unresolved_filename_mismatch"
+                or scenario.get("inventory_candidate_fault_family")
+                != "supply_air_temperature_sensor_bias"
+                or scenario.get("inventory_candidate_severity_unit") != "degC"
+                or scenario.get("semantic_mapping_status")
+                != "unresolved_filename_mismatch"
+            ):
+                raise ScenarioRegistryError(
+                    f"Unresolved coi_bias/sa_bias metadata is incomplete for {filename}"
+                )
+        elif scenario["severity_metadata_status"] != "verified_from_inventory_tables_3_4":
+            raise ScenarioRegistryError(f"Unverified severity metadata for {filename}")
 
         content_sha256 = scenario["content_sha256"]
         timeline_sha256 = scenario["timeline_sha256"]

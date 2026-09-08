@@ -107,7 +107,12 @@ coverage, timeline groups, numerical integrity, and constant-column findings.
 
 ## Data contracts
 
-- [Raw field data dictionary](lbnl_sd_ahu_data_dictionary.md)
+Official inventory Table 2 verifies the semantics, units, and Basic Point flags
+for all 30 monitored features. `Datetime` is verified from the pinned archive
+schema; its timezone remains unspecified.
+
+- [Official field semantics and data dictionary](lbnl_sd_ahu_data_dictionary.md)
+- [Inventory reconciliation](lbnl_sd_ahu_inventory_reconciliation.md)
 - [Label contract](lbnl_sd_ahu_label_contract.md)
 - [Canonical scenario registry](../../configs/lbnl_sd_ahu_scenarios.yaml)
 - [Local sample provenance](lbnl_sd_ahu_sample_provenance.md)

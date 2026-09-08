@@ -67,6 +67,12 @@ lbnl_sd_ahu:
     download_status: downloaded
     sha256: "FD439082E4F7C33BEC6D440999730FD97B5C0222284E29F71290415B0CA8790B"
     size_bytes: 530296
+  inventory_reconciliation:
+    status: partial
+    field_semantics_verified: 30
+    monitored_features: 30
+    unresolved_scenario_naming_discrepancies: 1
+    report: docs/datasets/lbnl_sd_ahu_inventory_reconciliation.md
   metadata_notes:
     csv_file_count: >-
       The current LBNL dataset webpage reports 20 CSV files, while the official
