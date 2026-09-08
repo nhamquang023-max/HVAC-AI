@@ -126,8 +126,11 @@ exact CSV-to-Parquet raw-value comparison.
 
 - [Ingestion pipeline contract](lbnl_sd_ahu_ingestion.md)
 - [Machine-readable ingestion smoke manifest](lbnl_sd_ahu_ingestion_smoke.json)
+- [Machine-readable full-ingestion manifest](lbnl_sd_ahu_full_ingestion_manifest.json)
 
-Full dataset conversion has not yet been executed.
+The full 21-scenario ZIP-to-Parquet conversion is complete. Dataset-level
+validation passed for 10,818,901 total rows using the 42-column canonical
+schema.
 
 ## Current project usage
 

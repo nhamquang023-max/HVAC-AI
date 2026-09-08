@@ -74,7 +74,27 @@ not asserted to remain identical across PyArrow versions or operating systems.
 
 ## Full ingestion status
 
-Full 21-scenario ingestion has **NOT** been run yet.
+The production ingestion completed with status `complete_and_verified` on
+2026-09-08. Dataset-level validation confirmed:
+
+- 21 logical scenarios and 10,818,901 total rows
+- 42 canonical columns
+- ZSTD compression level 3
+- 20 full annual scenarios and one short scenario
+- Output directory: `data/processed/lbnl_sd_ahu/scenarios`
+- Total Parquet size: 1,033,858,823 bytes (approximately 0.963 GiB)
+- [Machine-readable full-ingestion manifest](lbnl_sd_ahu_full_ingestion_manifest.json)
+- Manifest SHA-256:
+  `12AD25A5B01EC79F920318AAC72C5A6734ADA235DA55F113E9D535DC933D3970`
+
+The short scenario `damper_stuck_100_annual_short.csv` retains its observed
+308,101 rows from `2018-04-01T01:00:00` through `2018-11-01T00:00:00`. No
+padding or interpolation was performed.
+
+All four logical scenarios in `duplicate_group_001` and all four in
+`duplicate_group_002` were retained as independent canonical Parquet files. No
+deduplication was performed; output Parquet byte hashes need not be identical
+because scenario metadata differs.
 
 ## Full-ingestion orchestration
 
@@ -102,4 +122,5 @@ validates a temporary JSON file, and atomically publishes it. A manifest receive
 `complete_and_verified` only when every planned scenario and the complete row total
 pass validation.
 
-The real-data preflight passed. Full 21-scenario ingestion has not yet been executed.
+The production run followed this preflight, validation, and atomic publication
+sequence.
