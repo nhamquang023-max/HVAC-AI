@@ -114,6 +114,7 @@ schema; its timezone remains unspecified.
 - [Official field semantics and data dictionary](lbnl_sd_ahu_data_dictionary.md)
 - [Inventory reconciliation](lbnl_sd_ahu_inventory_reconciliation.md)
 - [Label contract](lbnl_sd_ahu_label_contract.md)
+- [Consolidated project data audit](../data_audit.md)
 - [Canonical scenario registry](../../configs/lbnl_sd_ahu_scenarios.yaml)
 - [Local sample provenance](lbnl_sd_ahu_sample_provenance.md)
 
