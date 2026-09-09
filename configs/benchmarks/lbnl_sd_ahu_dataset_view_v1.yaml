@@ -1,0 +1,232 @@
+view_id: lbnl_sd_ahu_primary_dataset_view_v1
+strategy_version: 1
+dataset: lbnl_sd_ahu
+strategy_status: architecture_review
+selected_strategy: dynamic_logical_views
+
+purpose:
+  scope: partition_correct_read_only_access
+  creates_new_data_source_of_truth: false
+  dataset_loader_implemented: false
+  dataset_views_materialized: false
+
+source_provenance:
+  canonical_source: data/processed/lbnl_sd_ahu/scenarios
+  split_contract: configs/benchmarks/lbnl_sd_ahu_split_v1.yaml
+  split_engine: src/hvac_ai/data/lbnl_sd_ahu_split.py
+  full_ingestion_manifest: docs/datasets/lbnl_sd_ahu_full_ingestion_manifest.json
+  full_ingestion_manifest_sha256: "12AD25A5B01EC79F920318AAC72C5A6734ADA235DA55F113E9D535DC933D3970"
+  scenario_registry: configs/lbnl_sd_ahu_scenarios.yaml
+  schema_contract: configs/lbnl_sd_ahu_schema.yaml
+  archive_sha256: "8295FCF0F55BC955937CB4EC0198512C28E5EDE32E6BBF735257B0DF55426471"
+
+source_of_truth:
+  canonical_data: canonical_parquet_files
+  partition_membership: split_contract
+  assignment_and_validation: split_engine
+  scenario_identity_and_order:
+    - full_ingestion_manifest
+    - scenario_registry
+  filesystem_glob_order: prohibited
+  duplicate_timestamp_boundaries_in_loader: prohibited
+
+evaluated_strategies:
+  physical_partition_materialization:
+    selected: false
+    primary_v1_default: not_recommended
+    benefit: simple_downstream_reads
+    costs:
+      - duplicated_storage
+      - second_copy_of_canonical_truth
+      - provenance_synchronization_burden
+      - regeneration_after_contract_change
+      - stale_artifact_risk
+      - possible_repeated_feature_pipeline_materialization
+  row_level_index_manifest:
+    selected: false
+    primary_v1_default: not_recommended
+    benefit: explicit_row_membership
+    costs:
+      - millions_of_redundant_index_records
+      - deterministic_membership_already_derivable_from_timestamp_contract
+      - additional_artifact_and_version_synchronization
+      - additional_index_read_complexity
+      - no_clear_benefit_for_contiguous_one_minute_timeline
+  dynamic_logical_views:
+    selected: true
+    primary_v1_default: recommended
+    inputs:
+      - canonical_parquet
+      - split_contract
+      - split_engine
+      - timestamp_predicate_filtering
+
+view_semantics:
+  modeling_partitions:
+    - train
+    - validation
+    - test
+  excluded_partitions:
+    - purge_train_validation
+    - purge_validation_test
+    - outside_primary_benchmark_scope
+  excluded_rows_returned_by_default_modeling_api: false
+  audit_access_to_excluded_partitions: explicit_opt_in_only
+  scenarios_per_modeling_view: 21
+  logical_scenarios_retained: true
+
+expected_counts:
+  train:
+    rows_per_scenario: 175620
+    total_rows: 3688020
+    logical_scenarios: 21
+  validation:
+    rows_per_scenario: 64800
+    total_rows: 1360800
+    logical_scenarios: 21
+  test:
+    rows_per_scenario: 64801
+    total_rows: 1360821
+    logical_scenarios: 21
+  modeling_total_rows: 6409641
+  purge_train_validation_rows: 30240
+  purge_validation_test_rows: 30240
+  purge_total_rows: 60480
+  outside_primary_benchmark_scope_rows: 4348780
+  common_universe_rows: 6470121
+  full_canonical_rows: 10818901
+
+access:
+  default_access_mode: streaming_batches
+  batch_size:
+    policy: configurable
+    recommended_minimum_rows: 50000
+    recommended_maximum_rows: 200000
+    affects_logical_membership: false
+  column_projection: required
+  caller_explicitly_requests_columns: true
+  datetime_filter_and_validation_column: Datetime
+  labels_and_metadata: explicit_request
+  feature_subset_owner: future_feature_contract
+  full_partition_pandas_dataframe_by_default: prohibited
+  preferred_interfaces:
+    - iterator
+    - record_batch
+    - chunked_dataframe
+  ml_framework: neutral
+
+predicate_policy:
+  timestamp_predicate_filtering: required
+  boundary_source: split_contract
+  boundary_inclusion: both
+  pushdown_compatible_form:
+    - Datetime_greater_than_or_equal_to_partition_start
+    - Datetime_less_than_or_equal_to_partition_end
+  hard_coded_boundary_copy_in_loader: prohibited
+  final_membership_semantics: frozen_split_contract
+  split_engine_reuse: required
+  independent_partition_logic: prohibited
+
+parquet_metadata_audit:
+  audit_scope: metadata_schema_and_row_group_statistics_only
+  feature_rows_read: false
+  parquet_files: 21
+  filename_set_matches_full_manifest: true
+  row_counts_match_full_manifest: true
+  row_group_counts_match_full_manifest: true
+  total_row_groups: 227
+  minimum_row_groups_per_file: 7
+  maximum_row_groups_per_file: 11
+  datetime_arrow_type: timestamp_ns
+  datetime_statistics:
+    row_groups_available: 227
+    row_groups_audited: 227
+    files_complete: 21
+    files_missing: []
+    min_max_available: true
+  chronological_row_group_order: passed
+  non_overlapping_ranges_follow_source_order: true
+  file_endpoints_match_full_manifest: true
+  predicate_pruning_suitability: suitable
+  blocking_metadata_issue: false
+  performance_caveat: future_reader_must_enable_supported_predicate_or_row_group_pruning
+
+materialization_policy:
+  physical_partition_materialization: false
+  default: prohibited
+  exception_requires_explicit_contract: true
+  append_partition_column_to_source: prohibited
+  rewrite_source_parquet: prohibited
+  temporary_labels_persisted_to_source: prohibited
+
+lightweight_manifest:
+  allowed: true
+  generated_in_this_step: false
+  row_level_indices: prohibited
+  permitted_contents:
+    - view_id_and_strategy_version
+    - split_id_and_contract_version
+    - archive_sha256
+    - full_ingestion_manifest_sha256
+    - source_parquet_filenames
+    - source_parquet_hashes_from_full_manifest
+    - expected_partition_counts
+    - expected_scenario_counts
+    - software_and_version_provenance
+
+duplicate_policy:
+  physical_deduplication: prohibited
+  duplicate_sampling: outside_dataset_view_scope
+  class_weighting: outside_dataset_view_scope
+  weighting_status: required_before_model_training
+  model_training_before_weighting_or_sampling_policy: prohibited
+
+class_imbalance_policy:
+  oversampling: prohibited_in_dataset_view
+  downsampling: prohibited_in_dataset_view
+  rebalancing: prohibited_in_dataset_view
+  class_weighting: prohibited_in_dataset_view
+  future_training_sampling_basis: train_view_only
+  validation_population: preserve_contract_population
+  test_population: preserve_contract_population
+
+short_scenario_policy:
+  scenario: damper_stuck_100_annual_short.parquet
+  uses_shared_timestamp_predicates: true
+  modeling_partition_counts_match_other_scenarios: true
+  padding: prohibited
+  interpolation: prohibited
+  reindexing: prohibited
+  synthetic_fill: prohibited
+
+source_immutability:
+  access: read_only
+  modify_canonical_parquet: prohibited
+  change_schema: prohibited
+  reorder_rows: prohibited
+  rewrite_compression: prohibited
+
+reproducibility_chain:
+  - pinned_archive
+  - canonical_full_ingestion_manifest
+  - twenty_one_canonical_parquet_files
+  - primary_split_v1_contract
+  - split_engine
+  - dynamic_logical_dataset_views
+  - later_preprocessing_and_feature_pipeline
+  - model
+
+known_limitations:
+  - duplicate_weighting_not_solved
+  - class_imbalance_not_solved
+  - features_not_defined
+  - preprocessing_not_defined
+  - model_sampling_not_defined
+  - primary_v1_common_window_is_not_a_full_year
+  - runtime_performance_depends_on_row_group_layout_and_pruning
+  - some_algorithms_may_require_controlled_in_memory_materialization
+
+next_step:
+  action: implement_read_only_dataset_view_loader_after_architecture_review
+  feature_engineering_allowed: false
+  model_training_allowed: false
