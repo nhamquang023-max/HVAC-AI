@@ -1,0 +1,196 @@
+split_id: lbnl_sd_ahu_primary_split_v1
+contract_version: 1
+dataset: lbnl_sd_ahu
+contract_status: architecture_review
+artifact_status: not_materialized
+
+task_scope:
+  primary:
+    - fault_detection
+    - fault_family_diagnosis
+  label_contract: docs/datasets/lbnl_sd_ahu_label_contract.md
+  severity: not_primary
+
+source_provenance:
+  archive_sha256: "8295FCF0F55BC955937CB4EC0198512C28E5EDE32E6BBF735257B0DF55426471"
+  full_ingestion_manifest: docs/datasets/lbnl_sd_ahu_full_ingestion_manifest.json
+  full_ingestion_manifest_sha256: "12AD25A5B01EC79F920318AAC72C5A6734ADA235DA55F113E9D535DC933D3970"
+  scenario_registry: configs/lbnl_sd_ahu_scenarios.yaml
+  schema_contract: configs/lbnl_sd_ahu_schema.yaml
+  data_audit: docs/data_audit.md
+
+benchmark_universe:
+  policy: common_observed_temporal_overlap_all_logical_scenarios
+  logical_scenarios: 21
+  start: "2018-04-01T01:00:00"
+  end: "2018-11-01T00:00:00"
+  inclusive: both
+  rows_per_scenario: 308101
+  total_rows: 6470121
+  full_annual_scenarios: 20
+  short_scenarios: 1
+  short_scenario_defines_common_coverage: true
+
+partitions:
+  train:
+    start: "2018-04-01T01:00:00"
+    end: "2018-07-31T23:59:00"
+    inclusive: both
+    rows_per_scenario: 175620
+    total_rows: 3688020
+    modeling_role: training
+  purge_train_validation:
+    start: "2018-08-01T00:00:00"
+    end: "2018-08-01T23:59:00"
+    inclusive: both
+    rows_per_scenario: 1440
+    total_rows: 30240
+    modeling_role: excluded_purge_gap
+  validation:
+    start: "2018-08-02T00:00:00"
+    end: "2018-09-15T23:59:00"
+    inclusive: both
+    rows_per_scenario: 64800
+    total_rows: 1360800
+    modeling_role: validation
+  purge_validation_test:
+    start: "2018-09-16T00:00:00"
+    end: "2018-09-16T23:59:00"
+    inclusive: both
+    rows_per_scenario: 1440
+    total_rows: 30240
+    modeling_role: excluded_purge_gap
+  test:
+    start: "2018-09-17T00:00:00"
+    end: "2018-11-01T00:00:00"
+    inclusive: both
+    rows_per_scenario: 64801
+    total_rows: 1360821
+    modeling_role: testing
+
+purge_gap_minutes: 1440
+
+timestamp_policy:
+  semantics: source_naive_datetime_timezone_unspecified
+  timezone_inference: prohibited
+  timezone_localization: prohibited
+  invented_dst_correction: prohibited
+  boundary_format: ISO_8601_like_naive_timestamp
+
+split_method_policy:
+  assignment: fixed_chronological_boundaries_shared_by_all_scenarios
+  random_row_split: prohibited
+  independent_per_scenario_percentage_split: prohibited
+  scenario_holdout_primary_v1: false
+
+short_scenario_policy:
+  scenario: damper_stuck_100_annual_short.csv
+  observed_start: "2018-04-01T01:00:00"
+  observed_end: "2018-11-01T00:00:00"
+  observed_rows: 308101
+  defines_common_universe: true
+  padding: prohibited
+  interpolation: prohibited
+  extrapolation: prohibited
+  annual_reindexing: prohibited
+  synthetic_extension: prohibited
+  included_modeling_partitions:
+    - train
+    - validation
+    - test
+
+duplicate_content_policy:
+  deduplicate: false
+  logical_scenarios_retained: true
+  synchronized_partition_assignment: same_timestamp_same_partition_across_group_members
+  groups:
+    duplicate_group_001:
+      severity_content_distinguishable: false
+      members:
+        - oa_bias_-2_annual.csv
+        - oa_bias_-4_annual.csv
+        - oa_bias_2_annual.csv
+        - oa_bias_4_annual.csv
+    duplicate_group_002:
+      severity_content_distinguishable: false
+      members:
+        - coi_leakage_010_annual.csv
+        - coi_leakage_025_annual.csv
+        - coi_leakage_040_annual.csv
+        - coi_leakage_050_annual.csv
+  weighting_status: required_before_model_training
+  model_training_before_weighting_policy_frozen: prohibited
+
+class_imbalance_policy:
+  fault_free_logical_scenarios: 1
+  faulted_logical_scenarios: 20
+  pre_split_downsampling: prohibited
+  pre_split_oversampling: prohibited
+  validation_resampling: prohibited
+  test_resampling: prohibited
+  training_weighting_or_sampling_basis: training_partition_only
+  training_strategy_status: to_be_defined
+  evaluation_population: preserve_contract_population
+  imbalance_metric_contract_status: required_before_evaluation
+
+preprocessing_policy:
+  fit_partition: train
+  apply_to:
+    - validation
+    - test
+  full_dataset_fit: prohibited
+  learned_parameters:
+    - mean
+    - standard_deviation
+    - minimum_and_maximum
+    - quantiles
+    - feature_selection_statistics
+    - PCA
+    - imputation_statistics
+    - scaler
+    - learned_transform
+    - resampling_rules
+
+time_feature_policy:
+  direction: causal_past_only
+  future_looking_windows: prohibited
+  cross_partition_observations: prohibited
+  purge_rows_as_modeling_samples: prohibited
+  purge_gap_minutes: 1440
+  maximum_historical_lookback_minutes_without_contract_review: 1440
+  longer_lookback_action: review_and_revise_purge_policy_and_split_contract
+
+outside_primary_scope_policy:
+  status: outside_primary_benchmark_scope
+  applies_to: full_annual_scenarios_only
+  intervals:
+    - start: "2018-01-01T01:00:00"
+      end: "2018-04-01T00:59:00"
+      inclusive: both
+    - start: "2018-11-01T00:01:00"
+      end: "2018-12-31T23:59:00"
+      inclusive: both
+  deleted_or_modified: false
+  primary_partition_membership: none
+  permitted_future_uses:
+    - auxiliary_analysis
+    - robustness_experiment
+    - secondary_benchmark
+  inclusion_in_primary_training: prohibited
+
+severity_policy:
+  primary_benchmark_status: not_primary
+  naive_classification_when_content_indistinguishable: prohibited
+  affected_fault_families:
+    - oa_bias
+    - coi_leakage
+  separate_future_contract_required: true
+
+reproducibility_invariants:
+  all_scenarios_share_boundaries: true
+  no_partition_overlap: true
+  no_timestamp_assigned_twice: true
+  common_universe_fully_accounted_for: true
+  purge_rows_excluded_from_modeling_partitions: true
+  rows_per_scenario_sum: 308101
+  dataset_total_rows_sum: 6470121
