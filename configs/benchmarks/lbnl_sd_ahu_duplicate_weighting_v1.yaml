@@ -1,0 +1,150 @@
+policy_id: lbnl_sd_ahu_duplicate_weighting_v1
+policy_version: 1
+dataset: lbnl_sd_ahu
+policy_status: architecture_review
+
+applies_to_tasks:
+  - fault_detection
+  - fault_family_diagnosis
+
+source_of_truth:
+  split_contract: configs/benchmarks/lbnl_sd_ahu_split_v1.yaml
+  scenario_registry: configs/lbnl_sd_ahu_scenarios.yaml
+  duplicate_audit: docs/datasets/lbnl_sd_ahu_duplicate_audit.md
+  dataset_view_strategy: configs/benchmarks/lbnl_sd_ahu_dataset_view_v1.yaml
+  duplicate_group_source: split_contract_and_scenario_registry
+  membership_resolution: read_canonical_scenario_duplicate_metadata
+  filename_substring_inference: prohibited
+
+population:
+  logical_scenarios: 21
+  unique_content_units: 15
+  nonduplicate_logical_scenarios: 13
+  duplicate_content_groups: 2
+  logical_scenarios_in_duplicate_groups: 8
+  all_logical_scenarios_retained: true
+
+weight_rule:
+  method: inverse_duplicate_group_size
+  nonduplicate_weight: 1.0
+  duplicate_member_weight_formula: 1 / group_size
+  row_weight_inheritance: scenario_duplicate_weight
+  random_seed_required: false
+  batch_independent: true
+
+expected_groups:
+  duplicate_group_001:
+    expected_size: 4
+    member_weight: 0.25
+    severity_content_distinguishable: false
+  duplicate_group_002:
+    expected_size: 4
+    member_weight: 0.25
+    severity_content_distinguishable: false
+
+training:
+  weighting_required_for_primary_v1: true
+  mechanism: sample_weight
+  physical_deduplication: prohibited
+  duplicate_resampling: prohibited_as_primary_default
+  random_duplicate_dropping: prohibited
+  ignore_weights: prohibited
+  unsupported_estimator_policy: noncompliant_without_explicit_adapter
+  per_group_scenario_equivalent_contribution: 1.0
+
+evaluation:
+  validation_resampling: prohibited
+  test_resampling: prohibited
+  preserve_contract_population: true
+  raw_logical_population_metrics: required
+  duplicate_corrected_metrics: required
+  primary_aggregate_view: duplicate_corrected_population
+  raw_logical_metric_role: required_secondary_transparency_metric
+  per_scenario_metrics: required_and_unweighted_within_scenario
+  cross_scenario_aggregation: apply_duplicate_weight
+  class_balance_weights_in_validation_test: prohibited
+
+expected_support:
+  raw_train_rows: 3688020
+  duplicate_corrected_train_weight_sum: 2634300
+  raw_validation_rows: 1360800
+  duplicate_corrected_validation_weight_sum: 972000
+  raw_test_rows: 1360821
+  duplicate_corrected_test_weight_sum: 972015
+  raw_modeling_rows: 6409641
+  duplicate_corrected_modeling_weight_sum: 4578315
+  effective_content_scenario_units: 15
+  weighted_support_is_physical_row_count: false
+
+per_group_weight_sums:
+  train:
+    rows_per_member: 175620
+    group_size: 4
+    member_weight: 0.25
+    group_weight_sum: 175620
+  validation:
+    rows_per_member: 64800
+    group_size: 4
+    member_weight: 0.25
+    group_weight_sum: 64800
+  test:
+    rows_per_member: 64801
+    group_size: 4
+    member_weight: 0.25
+    group_weight_sum: 64801
+
+effective_train_scenario_units_by_family:
+  fault_free: 1
+  coi_bias: 4
+  coi_leakage: 1
+  coi_stuck: 4
+  damper_stuck: 4
+  oa_bias: 1
+  total: 15
+
+class_imbalance:
+  solved_by_this_policy: false
+  effective_fault_free_scenario_units: 1
+  effective_fault_scenario_units: 14
+  effective_fault_to_fault_free_ratio: 14:1
+  family_balancing_target_defined: false
+  future_class_weight_source: train_partition_only
+  composition:
+    final_sample_weight: duplicate_weight * future_task_class_weight
+  validation_test_training_class_weights: prohibited
+
+severity:
+  primary_benchmark_status: not_primary
+  weighting_restores_severity_information: false
+  naive_classification_when_content_indistinguishable: prohibited
+
+provenance_and_feature_boundary:
+  weight_source: scenario_level_duplicate_metadata
+  feature_value_inference: prohibited
+  scenario_or_duplicate_metadata_as_ml_feature: prohibited_by_default
+  feature_contract_status: not_defined_by_this_policy
+
+determinism:
+  inputs:
+    - split_v1
+    - scenario_registry
+    - duplicate_policy_v1
+  depends_on_random_seed: false
+  depends_on_epoch: false
+  depends_on_batch_order: false
+  depends_on_batch_size: false
+  depends_on_model: false
+  depends_on_machine: false
+  depends_on_filesystem_order: false
+
+materialization:
+  derive_at_runtime: true
+  row_level_weight_artifact: prohibited
+  weighted_dataset_copy: prohibited
+  canonical_parquet_mutation: prohibited
+  append_weight_to_canonical_schema: prohibited
+
+implementation_status:
+  implemented: false
+  model_training_allowed_before_implementation: false
+  next_step: implement_and_validate_runtime_duplicate_weights
